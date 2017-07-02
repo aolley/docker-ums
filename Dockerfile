@@ -15,11 +15,10 @@ RUN echo 'deb http://www.deb-multimedia.org jessie main non-free' >> /etc/apt/so
     mplayer \
     openjdk-7-jre \
     vlc \
-    wget \
- && rm -rf /var/lib/apt/lists/*
+    wget
 
-ENV UMSVER 7.0.0-b2
-RUN (wget "https://www.fosshub.com/Universal-Media-Server.html/UMS-${UMSVER}.tgz" -O /opt/UMS-${UMSVER}.tgz &&\
+ENV UMSVER 6.7.1
+RUN (wget "http://sourceforge.net/projects/unimediaserver/files/Official%20Releases/Linux/UMS-${UMSVER}.tgz/download" -O /opt/UMS-${UMSVER}.tgz &&\
   cd /opt &&\
   tar zxf UMS-${UMSVER}.tgz &&\
   rm UMS-${UMSVER}.tgz &&\
@@ -27,6 +26,7 @@ RUN (wget "https://www.fosshub.com/Universal-Media-Server.html/UMS-${UMSVER}.tgz
 
 ADD UMS.conf /opt/ums/UMS.conf
 ADD WEB.conf /opt/ums/WEB.conf
+
 ENV UMS_PROFILE /opt/ums/UMS.conf
 RUN (mkdir /opt/ums/database /opt/ums/data &&\
   groupadd -g 500 ums &&\
